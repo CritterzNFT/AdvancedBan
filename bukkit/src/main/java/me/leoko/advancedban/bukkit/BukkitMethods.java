@@ -56,6 +56,11 @@ public class BukkitMethods implements MethodInterface {
             RegisteredServiceProvider<net.milkbowl.vault.permission.Permission> rsp = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
             permissionVault = (player, perms) -> rsp.getProvider().playerHas(null, player, perms);
         }
+
+        MultiLib.onString(BukkitMain.get(), "advanced_ban:clear_cache", name -> {
+            BukkitMain.get().getLogger().info("Clearing cache of " + name);
+            PunishmentManager.get().discard(name);
+        });
     }
 
     @Override
@@ -369,11 +374,15 @@ public class BukkitMethods implements MethodInterface {
     @Override
     public void callPunishmentEvent(Punishment punishment) {
         runSync(() -> Bukkit.getPluginManager().callEvent(new PunishmentEvent(punishment)));
+        BukkitMain.get().getLogger().info("Sending clear cache for punishment for " + punishment.getName());
+        if (punishment.getName() != null) MultiLib.notify("advanced_ban:clear_cache", punishment.getName());
     }
 
     @Override
     public void callRevokePunishmentEvent(Punishment punishment, boolean massClear) {
         runSync(() -> Bukkit.getPluginManager().callEvent(new RevokePunishmentEvent(punishment, massClear)));
+        BukkitMain.get().getLogger().info("Sending clear cache for revoke punishment for " + punishment.getName());
+        if (punishment.getName() != null) MultiLib.notify("advanced_ban:clear_cache", punishment.getName());
     }
 
     @Override
