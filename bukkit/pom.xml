@@ -29,6 +29,11 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <!-- MultiLib -->
+        <repository>
+            <id>clojars</id>
+            <url>https://repo.clojars.org</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -51,6 +56,13 @@
             <artifactId>VaultAPI</artifactId>
             <version>1.7</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.puregero</groupId>
+            <artifactId>MultiLib</artifactId>
+            <version>1.1.4</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>

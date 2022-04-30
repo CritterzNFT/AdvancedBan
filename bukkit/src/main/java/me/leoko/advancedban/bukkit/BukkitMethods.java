@@ -1,5 +1,6 @@
 package me.leoko.advancedban.bukkit;
 
+import com.github.puregero.multilib.MultiLib;
 import me.leoko.advancedban.MethodInterface;
 import me.leoko.advancedban.Universal;
 import me.leoko.advancedban.bukkit.event.PunishmentEvent;
@@ -212,7 +213,7 @@ public class BukkitMethods implements MethodInterface {
 
     @Override
     public Player[] getOnlinePlayers() {
-        return Bukkit.getOnlinePlayers().toArray(new Player[]{});
+        return MultiLib.getAllOnlinePlayers().toArray(new Player[]{});
     }
 
     @Override
@@ -382,7 +383,7 @@ public class BukkitMethods implements MethodInterface {
 
     @Override
     public void notify(String perm, List<String> notification) {
-        Bukkit.getOnlinePlayers()
+        MultiLib.getAllOnlinePlayers()
                 .stream()
                 .filter(player -> hasPerms(player, perm))
                 .forEach(player -> notification.forEach(str -> sendMessage(player, str)));
